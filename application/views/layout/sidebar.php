@@ -81,5 +81,11 @@
                 <div data-i18n="Analytics">Rooms</div>
               </a>
             </li>                                                          
+            <li class="menu-item">
+              <a href="<?= base_url('bookings') ?>" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Booking</div>
+              </a>
+            </li>                                                          
           </ul>
         </aside>

@@ -10,7 +10,7 @@ class RoomsModel extends CI_Model {
         $this->db->delete('rooms',['id' => $id]);
     }
     public function getDataById($id){
-        return $this->db->get_where('rooms',['id' =>$id])->row();
+        return $this->db->get_where('rooms',['id' => $id])->row();
     }
     public function update($id,$data){
         $this->db->where('id',$id)->update('rooms',$data);

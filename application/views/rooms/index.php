@@ -21,6 +21,7 @@
                   <table class="table">
                     <thead>
                       <tr>
+                        <th>No</th>
                         <th>Name</th>
                         <th>Location</th>
                         <th>Capacity</th>
@@ -29,8 +30,9 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <?php foreach($data as $item):?>
+                      <?php $no=0; foreach($data as $item):$no++?>
                         <tr>
+                          <td><?= $no ?></td>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $item->name ?></strong></td>
                           <td><?= $item->location ?></td>
                           <td><?= $item->capacity ?></td>
