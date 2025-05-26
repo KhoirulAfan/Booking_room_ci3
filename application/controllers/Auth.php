@@ -3,14 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Auth extends CI_Controller {
     public function __construct(){
         parent::__construct();
-        $this->load->model('AuthModel');
+        $this->load->model('AuthModel');          
     }
     public function login(){
+        if($this->auth_lib->is_logged_in()){
+            redirect('dashboard');
+        }
         $this->load->view('auth/login');
     }
     
    public function loginProccess()
    {
+        if($this->auth_lib->is_logged_in()){
+            redirect('dashboard');
+        }
         $data = [
             'email' => $this->input->post('email'),
             'password' => $this->input->post('password')
@@ -31,6 +37,9 @@ class Auth extends CI_Controller {
         }
    }
    public function logout(){
+    if(!$this->auth_lib->is_logged_in()){
+        redirect('auth/login');
+    }
     $this->session->sess_destroy();
     redirect('auth/login');
    }
