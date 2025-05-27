@@ -10,9 +10,21 @@ class BookingsModel extends CI_Model {
         $this->db->join('rooms','room_id = rooms.id');
         $this->db->join('status','status_id = status.id');
         $result = $this->db->get()->result();
-        return $result;
+        return $result;        
+    }
 
-        
+    public function approve($id){
+        $this->db->set('status_id',2);
+        $this->db->where('id',$id);
+        $this->db->update($this->table);
+    }
+    public function reject($id){
+        $this->db->set('status_id',3);
+        $this->db->where('id',$id);
+        $this->db->update($this->table);
+    }
+    public function insert($data){
+        $this->db->insert($this->table,$data);
     }
     // public function insert($data){
     //     $this->db->insert('rooms',$data);

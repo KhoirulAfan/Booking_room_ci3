@@ -139,7 +139,7 @@
               <p class="mb-4">Welcome to boooking rooms PT INDO TECHNO MEDIC</p>
               <form id="formAuthentication" class="mb-3" action="<?= base_url('auth/loginproccess')?>" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="email" class="form-label">Email</label>                  
                   <input
                     type="text"
                     class="form-control"
@@ -148,6 +148,11 @@
                     placeholder="Enter your email"
                     autofocus
                   />
+                  <?php
+                  if($this->session->flashdata('error')):
+                  ?>
+                    <p class="text-danger"><?= $this->session->flashdata('error') ?></p>
+                  <?php endif;?>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">

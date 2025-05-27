@@ -66,7 +66,7 @@
 
           <div class="menu-inner-shadow"></div>
 
-          <ul class="menu-inner py-1">
+          <php class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
               <a href="<?= base_url()?>" class="menu-link">
@@ -80,12 +80,14 @@
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Rooms</div>
               </a>
-            </li>                                                          
-            <li class="menu-item">
-              <a href="<?= base_url('bookings') ?>" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Booking</div>
-              </a>
-            </li>                                                          
-          </ul>
+            </li>                                  
+            <?php if($this->auth_lib->is_admin()):?>
+              <li class="menu-item">
+                <a href="<?= base_url('bookings') ?>" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div data-i18n="Analytics">Bookings</div>
+                </a>
+              </li>
+            <?php endif;?>
+          </php>
         </aside>

@@ -9,7 +9,14 @@
                   alert(`<?= $this->session->flashdata('error')?>`)
                 </script>
               <?php endif;?>
-              <div class="row">
+              <?php if($this->session->flashdata('success')):?>
+                <div class="row">
+                  <div class="alert alert-success alert-dismissible" role="alert">
+                   <i class="bx bx-check"></i> <?= $this->session->flashdata('success') ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  </button>
+                </div>
+              <?php endif;?>
                 <div class="card">
                 <div class="card-header">
                   <h4>Table <?= $title ?></h4>
@@ -56,8 +63,8 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu">
-                                <a href="<?= base_url('bookings/edit/'.$item->id)?>" class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                <a href="<?= base_url('bookings/delete/'.$item->id)?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to delete this room data?')"><i class="bx bx-trash me-1"></i> Delete</a>
+                                <a href="<?= base_url('bookings/update/'.$item->id.'/approve')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to approve this booking data?')"><i class="bx bx-check me-1"></i>Approve</a>
+                                <a href="<?= base_url('bookings/update/'.$item->id.'/reject')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to reject this booking data?')"><i class="bx bx-x me-1"></i> Reject</a>
                               </div>
                             </div>
                           </td>
