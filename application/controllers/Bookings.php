@@ -42,15 +42,20 @@ class Bookings extends CI_Controller {
         ];
         $this->load->view('bookings/create',$data);
     }
-    public function store(){
+    public function store(){        
         $data = [
             'user_id' => $this->session->userdata('user_id'),
             'status_id' => $this->input->post('status_id'),
             'room_id' => $this->input->post('room_id'),
-            'start_time' => date('d-m-Y').' '.$this->input->post('end_time'),
-            'end_time' => date('d-m-Y').' '.$this->input->post('end_time'),
+            'start_time' => date('Y-m-d').' '.$this->input->post('start_time').':00',
+            'end_time' => date('Y-m-d').' '.$this->input->post('end_time').':00',
             'purpose' => $this->input->post('purpose')
         ];        
+
+        // print_r('<pre>');
+        // var_dump($data);
+        // print_r('</pre>');        
+
         $this->BookingsModel->insert($data);
         $this->session->set_flashdata('success','berhasil menambahkan data booking');
         redirect('bookings');

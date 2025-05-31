@@ -30,6 +30,7 @@
                       <tr>
                         <th>No</th>
                         <th>Ruang</th>
+                        <th>purpose</th>
                         <th>Nama user</th>
                         <th>status</th>
                         <th>Start</th>
@@ -42,6 +43,7 @@
                         <tr>
                           <td><?= $no ?></td>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $item->nama_room ?></strong></td>
+                          <td><?= $item->purpose ?></td>
                           <td><?= $item->nama_user ?></td>
                           <td>
                             <?php 
@@ -55,8 +57,22 @@
                               <?= $item->status ?>
                             </div>                            
                           </td>
-                          <td><?= $item->start_time ?></td>
-                          <td><?= $item->end_time ?></td>                          
+                          <td>
+                            <small>
+                              <?= date('d-m-Y',strtotime($item->start_time))?>
+                            </small>
+                            <span class="badge bg-label-primary">
+                              <?= date('H:i',strtotime($item->start_time))?>
+                            </span>
+                          </td>
+                          <td>
+                            <small>
+                              <?= date('d-m-Y',strtotime($item->end_time))?>
+                            </small>
+                            <span class="badge bg-label-primary">
+                              <?= date('H:i',strtotime($item->end_time))?>
+                            </span>
+                          </td>  
                           <td>
                             <div class="dropdown">
                               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
