@@ -6,7 +6,9 @@ class Bookings extends CI_Controller {
         $this->auth_lib->required_admin();
         $this->load->model('RoomsModel');
         $this->load->model('BookingsModel');
-        $this->load->model('StatusModel');
+        $this->load->model('StatusModel');        
+        $this->load->library('Booking_lib');
+        $this->load->library('form_validation');
     }
     public function index(){
         $this->auth_lib->required_admin();
@@ -18,7 +20,9 @@ class Bookings extends CI_Controller {
         
     }
 
-    public function update($id,$status){   
+    public function update($id,$status){
+        
+        $this->booking_lib->check_days($id);
         if($status === 'reject'){
             $this->BookingsModel->reject($id);
             $this->session->set_flashdata('success','Successfull rejected bookings data');
@@ -43,6 +47,18 @@ class Bookings extends CI_Controller {
         $this->load->view('bookings/create',$data);
     }
     public function store(){        
+        // validation
+        $this->form_validation->set_rules('user_id','User id','required');
+        $this->form_validation->set_rules('status_id','Status','required');
+        $this->form_validation->set_rules('room_id','Room','required');
+        $this->form_validation->set_rules('start_time','start time','required');
+        $this->form_validation->set_rules('end_time','end time','required');
+        $this->form_validation->set_rules('purpose','Purpose','required|min_length[5]');
+
+        if(!$this->form_validation->run()){
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+
         $data = [
             'user_id' => $this->session->userdata('user_id'),
             'status_id' => $this->input->post('status_id'),
@@ -51,11 +67,7 @@ class Bookings extends CI_Controller {
             'end_time' => date('Y-m-d').' '.$this->input->post('end_time').':00',
             'purpose' => $this->input->post('purpose')
         ];        
-
-        // print_r('<pre>');
-        // var_dump($data);
-        // print_r('</pre>');        
-
+        $this->booking_lib->check_start_end_time($data['start_time'],$data['end_time']);        
         $this->BookingsModel->insert($data);
         $this->session->set_flashdata('success','berhasil menambahkan data booking');
         redirect('bookings');

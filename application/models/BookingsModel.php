@@ -32,9 +32,9 @@ class BookingsModel extends CI_Model {
     // public function delete($id){
     //     $this->db->delete('rooms',['id' => $id]);
     // }
-    // public function getDataById($id){
-    //     return $this->db->get_where('rooms',['id' =>$id])->row();
-    // }
+    public function getDataById($id){
+        return $this->db->get_where($this->table,['id' =>$id])->row();
+    }
     // public function update($id,$data){
     //     $this->db->where('id',$id)->update('rooms',$data);
     // }

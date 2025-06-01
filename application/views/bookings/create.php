@@ -12,7 +12,7 @@
                     <a href="<?= base_url('rooms/')?>" class="btn btn-secondary"><i class="bx bx-arrow-to-left me-1"></i>Back</a>
                   </div>
                 </div>
-                <div class="card-body">                  
+                <php class="card-body">                  
                     <form action="<?= site_url('bookings/store')?>" method="post">                      
                         <div class="mb-3">                          
                           <label for="select2" class="form-label">Room</label>
@@ -21,14 +21,22 @@
                               <option value="<?=$room->id?>"><?= $room->name ?></option>
                             <?php endforeach;?>                              
                           </select>                          
+                          <?= form_error('room_id','<small class="text-danger">', '</small>'); ?>
                         </div>     
-                        <div class="mb-3">
+                        <ph class="mb-3">
                           <label for="start_time" class="form-label">Start Time</label>
                           <input type="time" name="start_time" id="start_time" class="form-control">
-                        </div>                                          
+                          <?php if($this->session->flashdata('error')):?>
+                            <p class="text-danger">
+                              <?= $this->session->flashdata('error') ?>
+                            </p>
+                          <?php endif;?>
+                          <?= form_error('start_time','<small class="text-danger">', '</small>'); ?>
+                        </ph>                                          
                         <div class="mb-3">
                           <label for="end_time" class="form-label">End Time</label>
                           <input type="time" name="end_time" id="end_time" class="form-control">
+                          <?= form_error('end_time','<small class="text-danger">', '</small>'); ?>
                         </div>                                          
                         <div class="mb-3">                          
                           <label for="select2" class="form-label">Status</label>
@@ -36,15 +44,17 @@
                             <?php foreach($status as $item):?>
                               <option value="<?=$item->id?>"><?= $item->name ?></option>
                             <?php endforeach;?>                              
-                          </select>    
+                          </select> 
+                          <?= form_error('end_time','<small class="text-danger">', '</small>'); ?>   
                         </div>     
                         <div class="mb-3">
                           <label for="purpose" class="form-label">Purpose</label>
                           <textarea name="purpose" id="purpose" class="form-control" placeholder="Purpose "></textarea>
+                          <?= form_error('purpose','<small class="text-danger">', '</small>'); ?>
                         </div>                      
                         <button type="submit" class="btn btn-primary"><i class="bx bx-plus"></i>Create</button>
                       </form>
-                </div>
+                </php>
               </div>
                
               </div>

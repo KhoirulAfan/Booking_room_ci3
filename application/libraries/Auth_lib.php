@@ -4,9 +4,9 @@ class Auth_lib{
 
     protected $CI;
 
-    public function __construct(){
-        $this->CI =& get_instance();
-    }
+        public function __construct(){
+            $this->CI =& get_instance();
+        }
     public function is_logged_in(){
         return $this->CI->session->userdata('logged_in') == true;
     }
