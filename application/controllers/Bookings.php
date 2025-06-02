@@ -47,30 +47,39 @@ class Bookings extends CI_Controller {
         $this->load->view('bookings/create',$data);
     }
     public function store(){        
-        // validation
-        $this->form_validation->set_rules('user_id','User id','required');
+        // validation        
         $this->form_validation->set_rules('status_id','Status','required');
         $this->form_validation->set_rules('room_id','Room','required');
         $this->form_validation->set_rules('start_time','start time','required');
         $this->form_validation->set_rules('end_time','end time','required');
         $this->form_validation->set_rules('purpose','Purpose','required|min_length[5]');
 
-        if(!$this->form_validation->run()){
-            redirect($_SERVER['HTTP_REFERER']);
+        if($this->form_validation->run() === false){            
+             $data = [
+                'title' => 'Create data booking',
+                'rooms' =>  $this->RoomsModel->getAllRooms(),
+                'status' => $this->StatusModel->getAllStatus()
+                ];
+            $this->load->view('bookings/create',$data);
+        }else{             
+            $data = [
+                'user_id' => $this->session->userdata('user_id'),
+                'status_id' => $this->input->post('status_id'),
+                'room_id' => $this->input->post('room_id'),
+                'start_time' => date('Y-m-d').' '.$this->input->post('start_time').':00',
+                'end_time' => date('Y-m-d').' '.$this->input->post('end_time').':00',
+                'purpose' => $this->input->post('purpose')
+            ];
+            if (!$this->BookingsModel->is_time_slot_available($data['room_id'], $data['start_time'], $data['end_time'])) {
+                $this->session->set_flashdata('error', 'Waktu booking bentrok. Silakan pilih waktu lain.');
+                redirect('bookings/create');
+            }        
+            $this->booking_lib->check_start_end_time($data['start_time'],$data['end_time']);        
+            $this->BookingsModel->insert($data);
+            $this->session->set_flashdata('success','berhasil menambahkan data booking');
+            redirect('bookings');
         }
 
-        $data = [
-            'user_id' => $this->session->userdata('user_id'),
-            'status_id' => $this->input->post('status_id'),
-            'room_id' => $this->input->post('room_id'),
-            'start_time' => date('Y-m-d').' '.$this->input->post('start_time').':00',
-            'end_time' => date('Y-m-d').' '.$this->input->post('end_time').':00',
-            'purpose' => $this->input->post('purpose')
-        ];        
-        $this->booking_lib->check_start_end_time($data['start_time'],$data['end_time']);        
-        $this->BookingsModel->insert($data);
-        $this->session->set_flashdata('success','berhasil menambahkan data booking');
-        redirect('bookings');
     }
     public function edit(){
     }   

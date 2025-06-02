@@ -15,7 +15,8 @@ class Booking_lib{
     }
 
     public function check_start_end_time($start_time,$end_time){        
-        if(!strtotime($start_time)< strtotime($end_time)){
+        if(strtotime($start_time) >= strtotime($end_time)){
+            // var_dump(strtotime($start_time));
             $this->CI->session->set_flashdata('error','Waktu mulai harus lebih awal daripada Waktu selesai');
             redirect($_SERVER['HTTP_REFERER']);
         }        

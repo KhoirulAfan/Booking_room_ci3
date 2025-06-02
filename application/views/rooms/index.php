@@ -23,6 +23,7 @@
                       <tr>
                         <th>No</th>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Location</th>
                         <th>Capacity</th>
                         <th>Description</th>
@@ -34,6 +35,7 @@
                         <tr>
                           <td><?= $no ?></td>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $item->name ?></strong></td>
+                          <td><?= $item->status ?></td>
                           <td><?= $item->location ?></td>
                           <td><?= $item->capacity ?></td>
                           <td><?= $item->description ?></td>
