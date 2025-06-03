@@ -66,7 +66,7 @@
 
           <div class="menu-inner-shadow"></div>
 
-          <php class="menu-inner py-1">
+          <div class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
               <a href="<?= base_url()?>" class="menu-link">
@@ -87,7 +87,13 @@
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Bookings</div>
                 </a>
-              </li>
+              </li>              
             <?php endif;?>
-          </php>
+            <li class="menu-item">
+              <a href="<?= base_url('booked') ?>" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Booked</div>
+              </a>
+            </li>
+          </div>
         </aside>

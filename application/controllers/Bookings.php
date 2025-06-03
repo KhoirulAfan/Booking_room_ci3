@@ -16,8 +16,7 @@ class Bookings extends CI_Controller {
             'data' => $this->BookingsModel->getAll(),
             'title' => 'Booking'
         ];                                
-        $this->load->view('bookings/index',$data);
-        
+        $this->load->view('bookings/index',$data);        
     }
 
     public function update($id,$status){
@@ -81,8 +80,28 @@ class Bookings extends CI_Controller {
         }
 
     }
-    public function edit(){
-    }   
-    public function delete(){
+    
+    public function booked($tanggal = null){
+        $user_id = $this->session->userdata('user_id');
+        $data = [
+            'title' => 'Booked',
+            'data' => $this->BookingsModel->getBookingByUserId($user_id)
+        ];
+        
+        $this->load->view('bookings/booked',$data);
+    }
+    public function cancel_booked($booking_id){        
+        $this->BookingsModel->cancel_booked($booking_id);
+        $this->session->set_flashdata('success','Successfull canceling booked room');
+            redirect('booked');
+    }
+
+    public function canceled(){
+        $user_id = $this->session->userdata('user_id');
+        $data = [
+            'title' => 'Canceled Booking',
+            'data' => $this->BookingsModel->getBookingByUserId($user_id,1)
+        ];
+        $this->load->view('bookings/canceled',$data);
     }
 }

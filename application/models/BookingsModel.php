@@ -53,4 +53,25 @@ class BookingsModel extends CI_Model {
     // public function update($id,$data){
     //     $this->db->where('id',$id)->update('rooms',$data);
     // }
+
+      public function getBookingByUserId($user_id,$canceled=0,$tgl = null){ 
+        $this->db->select('bookings.id as id,rooms.name as nama_room,users.name as nama_user,status.name as status,start_time,end_time,purpose,canceled');
+        $this->db->from($this->table);
+        $this->db->join('users','bookings.user_id = users.id');
+        $this->db->join('rooms','bookings.room_id = rooms.id');
+        $this->db->join('status','bookings.status_id = status.id');
+        $this->db->where('user_id',$user_id);
+        $this->db->where('deleted',0);        
+        $this->db->where('canceled',$canceled);        
+        if($tgl){
+            $this->db->like('start_time',$tgl,'after'); 
+        }
+        $result = $this->db->get()->result();
+        return $result;
+    }
+     public function cancel_booked($booking_id){
+        $this->db->set('canceled',1);
+        $this->db->where('id',$booking_id);
+        $this->db->update($this->table);
+    }     
 }
