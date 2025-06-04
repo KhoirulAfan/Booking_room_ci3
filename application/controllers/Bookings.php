@@ -104,4 +104,17 @@ class Bookings extends CI_Controller {
         ];
         $this->load->view('bookings/canceled',$data);
     }
+
+    public function print(){
+        $all = $this->input->get('all');
+        $judul = $this->input->get('judul');
+        if($all){
+            $this->auth_lib->required_admin();
+            $data = [
+                'judul' => $judul,
+                'data' =>$this->BookingsModel->getAll(),                
+            ];                                
+            $this->load->view('bookings/print',$data);   
+        }
+    }
 }

@@ -20,8 +20,20 @@
                 <div class="card">
                 <div class="card-header">
                   <h4>Table <?= $title ?></h4>
-                  <div class="action">
-                    <a href="<?= base_url('bookings/create')?>" class="btn btn-primary"><i class="bx bx-plus me-3"></i>Create</a>
+                  <div class="action d-flex justify-content-between">
+                    <div>
+                      <a href="<?= base_url('bookings/create')?>" class="btn btn-primary"><i class="bx bx-plus me-3"></i>Create</a>
+                    </div>
+                    <div>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#printModal">
+                        <i class="bx bx-printer"></i>
+                        Print
+                      </button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#downloadPDFModal">
+                        <i class="bx bx-file"></i>
+                        Download PDF
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div class="table-responsive text-nowrap">
@@ -109,4 +121,80 @@
 			      </c>
             <!-- / Content -->
 <?php $this->load->view('layout/footer.php')?>
-     
+
+<!-- modal print-->
+<div class="modal fade" id="printModal" data-bs-backdrop="static" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content" action="<?= site_url('bookings/print')?>" method="get">
+      <div class="modal-header">
+        <h5 class="modal-title" id="backDropModalTitle">Print PDF</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">      
+        
+        <div class="row g-4">
+          <div class="col mb-0">
+            <label for="judul" class="form-label">Judul</label>
+            <input type="text" id="judulPrint" class="form-control" name="judul" >
+          </div>
+          <div class="col mb-0">
+            <label for="tanggalMulai" class="form-label">Tanggal mulai</label>
+            <input type="date" id="tanggalMulaiPrint" class="form-control" name="tanggal_mulai" disabled>
+          </div>
+          <div class="col mb-0">
+            <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
+            <input type="date" id="tanggalSelesaiPrint" class="form-control" name="tanggal_selesai" disabled>
+          </div>
+        </div>
+        <div class="row mt-3  ">
+          <div class="col">
+            <label for="checkbox_all_print">Semua</label>
+            <input type="checkbox" name="all" id="checkbox_all_print">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Print</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // const fitur lain kali jika sempat: jika all ceklist maka input start time dan endrime akan disabled
+</script>
+
+<!-- modal download pdf-->
+<div class="modal fade" id="downloadPDFModal" data-bs-backdrop="static" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="backDropModalTitle">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col mb-4">
+            <label for="nameBackdrop" class="form-label">Name</label>
+            <input type="text" id="nameBackdrop" class="form-control" placeholder="Enter Name">
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col mb-0">
+            <label for="emailBackdrop" class="form-label">Email</label>
+            <input type="email" id="emailBackdrop" class="form-control" placeholder="xxxx@xxx.xx">
+          </div>
+          <div class="col mb-0">
+            <label for="dobBackdrop" class="form-label">DOB</label>
+            <input type="date" id="dobBackdrop" class="form-control" >
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
