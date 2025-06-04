@@ -13,7 +13,7 @@ class Bookings extends CI_Controller {
     public function index(){
         $this->auth_lib->required_admin();
         $data = [
-            'data' => $this->BookingsModel->getAll(),
+            'data' =>$this->BookingsModel->getAll(),
             'title' => 'Booking'
         ];                                
         $this->load->view('bookings/index',$data);        

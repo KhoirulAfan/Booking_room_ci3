@@ -38,6 +38,7 @@
                         <th>action</th>
                       </tr>
                     </thead>
+                    <?php if($data >1):?>
                     <tbody class="table-border-bottom-0">
                       <?php $no=0; foreach($data as $item): $no++?>
                         <tr>
@@ -93,6 +94,13 @@
                         </tr>                                                   
                       <?php endforeach;?>
                     </tbody>
+                    <?php else:?>
+                      <tbody class="table-border-bottom-0">
+                        <tr>
+                          <td class="text-center" colspan="8">Data kosong</td>
+                        </tr>
+                      </tbody>
+                    <?php endif;?>
                   </table>
                 </div>
               </div>
