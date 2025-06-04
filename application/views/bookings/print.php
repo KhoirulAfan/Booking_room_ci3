@@ -3,19 +3,48 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $judul ?></title>
+    <title>
+        <?php 
+        if($judul === ''){
+            echo 'Booking data';
+        }else{
+            echo $judul;
+        }
+        ?>
+    </title>
     <style>
+        *{
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
         table,th,td{
+            
             border:1px solid black;
             border-collapse: collapse;            
         }
+        table{
+            width:100%;
+        }
+        
         td,th{
             text-align:center;
             padding:0.5em;
         }
+        h1,p{
+            text-align:center;
+            margin:0;
+            padding:0;
+        }
+        .header{
+            margin:1em;
+        }
     </style>
  </head>
  <body>
+    <div class="header">
+        <h1><?= $judul ?? '' ?></h1>
+        <p><?= $subjudul ?? '' ?></p>
+    </div>
+
      <table class="table" >
     <thead>
         <tr>

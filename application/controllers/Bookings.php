@@ -111,9 +111,11 @@ class Bookings extends CI_Controller {
         $start_time = $this->input->get('tanggal_mulai');
         $end_time = $this->input->get('tanggal_selesai');
         $judul = $this->input->get('judul');
+        $subjudul = $this->input->get('subjudul');
         if($all){
             $data = [
                 'judul' => $judul,
+                'subjudul' => $subjudul,
                 'data' =>$this->BookingsModel->getAll(),                
             ];                                
             $this->load->view('bookings/print',$data);   

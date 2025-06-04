@@ -130,12 +130,15 @@
         <h5 class="modal-title" id="backDropModalTitle">Print PDF</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">      
-        
+      <div class="modal-body">              
         <div class="row g-4">
           <div class="col-12 mb-0">
             <label for="judul" class="form-label">Judul</label>
             <input type="text" id="judulPrint" class="form-control" name="judul" >
+          </div>
+          <div class="col-12 mb-0">
+            <label for="subJudul" class="form-label">SubJudul</label>
+            <input type="text" id="subJudul" class="form-control" name="subjudul" >
           </div>
           <div class="col mb-0">
             <label for="tanggalMulai" class="form-label">Tanggal mulai</label>
