@@ -31,7 +31,7 @@
                         <th>No</th>
                         <th>Ruang</th>
                         <th>purpose</th>
-                        <th>Nama user</th>
+                        <th>Nama user</th>                        
                         <th>status</th>
                         <th>Start</th>
                         <th>End</th>
@@ -44,18 +44,24 @@
                           <td><?= $no ?></td>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $item->nama_room ?></strong></td>
                           <td><?= $item->purpose ?></td>
-                          <td><?= $item->nama_user ?></td>
+                          <td><?= $item->nama_user ?></td>                          
                           <td>
-                            <?php 
+                            <?php                             
                             $statusBadge = [
                               'pending'  => 'warning',
                               'approved' => 'success'
                             ];
                             $bade = $statusBadge[$item->status] ?? 'danger';
+                            if($item->canceled):
                             ?>
+                            <div class="badge bg-label-warning">
+                              Canceled
+                            </div>     
+                            <?php else:;?>
                             <div class="badge bg-label-<?= $bade?>">
                               <?= $item->status ?>
-                            </div>                            
+                            </div>     
+                            <?php endif;?>                       
                           </td>
                           <td>
                             <small>

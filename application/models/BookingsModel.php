@@ -4,7 +4,7 @@ class BookingsModel extends CI_Model {
     private $table = 'bookings';
     public function getAll(){
         
-        $this->db->select('bookings.id as id,rooms.name as nama_room,users.name as nama_user,status.name as status,start_time,end_time,purpose');
+        $this->db->select('bookings.id as id,rooms.name as nama_room,users.name as nama_user,status.name as status,start_time,end_time,purpose,canceled');
         $this->db->from($this->table);
         $this->db->join('users','bookings.user_id = users.id');
         $this->db->join('rooms','bookings.room_id = rooms.id');
