@@ -73,5 +73,16 @@ class BookingsModel extends CI_Model {
         $this->db->set('canceled',1);
         $this->db->where('id',$booking_id);
         $this->db->update($this->table);
-    }     
+    }
+      public function getAllByRange($start_time,$end_time){        
+        $this->db->select('bookings.id as id,rooms.name as nama_room,users.name as nama_user,status.name as status,start_time,end_time,purpose,canceled');
+        $this->db->from($this->table);
+        $this->db->where('DATE(start_time) >=',$start_time);
+        $this->db->where('DATE(start_time) <=',$end_time);
+        $this->db->join('users','bookings.user_id = users.id');
+        $this->db->join('rooms','bookings.room_id = rooms.id');
+        $this->db->join('status','bookings.status_id = status.id');
+        $result = $this->db->get()->result();
+        return $result;        
+    }
 }

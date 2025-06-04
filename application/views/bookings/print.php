@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $judul ?></title>
+    <style>
+        table,th,td{
+            border:1px solid black;
+            border-collapse: collapse;            
+        }
+        td,th{
+            text-align:center;
+            padding:0.5em;
+        }
+    </style>
  </head>
  <body>
-     <table class="table" border="1">
+     <table class="table" >
     <thead>
         <tr>
         <th>No</th>

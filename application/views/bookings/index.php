@@ -133,17 +133,17 @@
       <div class="modal-body">      
         
         <div class="row g-4">
-          <div class="col mb-0">
+          <div class="col-12 mb-0">
             <label for="judul" class="form-label">Judul</label>
             <input type="text" id="judulPrint" class="form-control" name="judul" >
           </div>
           <div class="col mb-0">
             <label for="tanggalMulai" class="form-label">Tanggal mulai</label>
-            <input type="date" id="tanggalMulaiPrint" class="form-control" name="tanggal_mulai" disabled>
+            <input type="date" id="tanggalMulaiPrint" class="form-control" name="tanggal_mulai">
           </div>
           <div class="col mb-0">
             <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
-            <input type="date" id="tanggalSelesaiPrint" class="form-control" name="tanggal_selesai" disabled>
+            <input type="date" id="tanggalSelesaiPrint" class="form-control" name="tanggal_selesai">
           </div>
         </div>
         <div class="row mt-3  ">
@@ -162,6 +162,18 @@
 </div>
 
 <script>
+  const checkboxSemuaPrint = document.getElementById('checkbox_all_print');
+  const inputStartTimePrint = document.getElementById('tanggalMulaiPrint');
+  const inputEndTimePrint = document.getElementById('tanggalSelesaiPrint');
+  checkboxSemuaPrint.addEventListener('change',function(){
+    if(checkboxSemuaPrint.checked === true){
+      inputStartTimePrint.disabled = true;
+      inputEndTimePrint.disabled = true;
+    }else if(checkboxSemuaPrint.checked === false){
+      inputStartTimePrint.disabled = false;
+      inputEndTimePrint.disabled = false;
+    }
+  })
   // const fitur lain kali jika sempat: jika all ceklist maka input start time dan endrime akan disabled
 </script>
 

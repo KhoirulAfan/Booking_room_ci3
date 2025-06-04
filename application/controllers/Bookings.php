@@ -106,13 +106,21 @@ class Bookings extends CI_Controller {
     }
 
     public function print(){
+        $this->auth_lib->required_admin();
         $all = $this->input->get('all');
+        $start_time = $this->input->get('tanggal_mulai');
+        $end_time = $this->input->get('tanggal_selesai');
         $judul = $this->input->get('judul');
         if($all){
-            $this->auth_lib->required_admin();
             $data = [
                 'judul' => $judul,
                 'data' =>$this->BookingsModel->getAll(),                
+            ];                                
+            $this->load->view('bookings/print',$data);   
+        }else{
+            $data = [
+            'judul' => $judul,
+            'data' =>$this->BookingsModel->getAllByRange($start_time,$end_time),
             ];                                
             $this->load->view('bookings/print',$data);   
         }
