@@ -55,3 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['booked'] = 'Bookings/booked';
 $route['booked/cancel/(:num)'] = 'Bookings/cancel_booked/$1';
 $route['booked/canceled'] = 'Bookings/canceled';
+$route['bookings/print'] = 'Bookings/print';
+$route['bookings/download'] = 'Bookings/download_pdf';

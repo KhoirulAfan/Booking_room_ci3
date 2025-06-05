@@ -125,7 +125,7 @@
 <!-- modal print-->
 <div class="modal fade" id="printModal" data-bs-backdrop="static" tabindex="-1">
   <div class="modal-dialog">
-    <form class="modal-content" action="<?= site_url('bookings/print')?>" method="get">
+    <form class="modal-content" action="<?= site_url('bookings/print')?>" method="get" target="_blank">
       <div class="modal-header">
         <h5 class="modal-title" id="backDropModalTitle">Print PDF</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -158,7 +158,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Print</button>
+        <button type="submit" class="btn btn-primary" >Print</button>
       </div>
     </form>
   </div>
@@ -180,36 +180,57 @@
   // const fitur lain kali jika sempat: jika all ceklist maka input start time dan endrime akan disabled
 </script>
 
-<!-- modal download pdf-->
+<!-- modal download-->
 <div class="modal fade" id="downloadPDFModal" data-bs-backdrop="static" tabindex="-1">
   <div class="modal-dialog">
-    <form class="modal-content">
+    <form class="modal-content" action="<?= site_url('bookings/download')?>" method="get" target="_blank">
       <div class="modal-header">
-        <h5 class="modal-title" id="backDropModalTitle">Modal title</h5>
+        <h5 class="modal-title" id="backDropModalTitle">Download PDF</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col mb-4">
-            <label for="nameBackdrop" class="form-label">Name</label>
-            <input type="text" id="nameBackdrop" class="form-control" placeholder="Enter Name">
+      <div class="modal-body">              
+        <div class="row g-4">
+          <div class="col-12 mb-0">
+            <label for="judulDownload" class="form-label">Judul</label>
+            <input type="text" id="judulDownload" class="form-control" name="judul" >
+          </div>    
+          <div class="col mb-0">
+            <label for="tanggalMulaiDownload" class="form-label">Tanggal mulai</label>
+            <input type="date" id="tanggalMulaiDownload" class="form-control" name="tanggal_mulai">
+          </div>
+          <div class="col mb-0">
+            <label for="tanggalSelesaiDownload" class="form-label">Tanggal Selesai</label>
+            <input type="date" id="tanggalSelesaiDownload" class="form-control" name="tanggal_selesai">
           </div>
         </div>
-        <div class="row g-4">
-          <div class="col mb-0">
-            <label for="emailBackdrop" class="form-label">Email</label>
-            <input type="email" id="emailBackdrop" class="form-control" placeholder="xxxx@xxx.xx">
-          </div>
-          <div class="col mb-0">
-            <label for="dobBackdrop" class="form-label">DOB</label>
-            <input type="date" id="dobBackdrop" class="form-control" >
+        <div class="row mt-3  ">
+          <div class="col">
+            <label for="checkbox_all_download">Semua</label>
+            <input type="checkbox" name="all" id="checkbox_all_download">
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" >Download</button>
       </div>
     </form>
   </div>
 </div>
+
+<script>
+  const checkboxSemuaDownload = document.getElementById('checkbox_all_download');
+  const inputStartTimeDownload = document.getElementById('tanggalMulaiDownload');
+  const inputEndTimeDownload = document.getElementById('tanggalSelesaiDownload');
+  checkboxSemuaDownload.addEventListener('change',function(){
+    if(checkboxSemuaDownload.checked === true){
+      inputStartTimeDownload.disabled = true;
+      inputEndTimeDownload.disabled = true;
+    }else if(checkboxSemuaDownload.checked === false){
+      inputStartTimeDownload.disabled = false;
+      inputEndTimeDownload.disabled = false;
+    }
+  })
+  // const fitur lain kali jika sempat: jika all ceklist maka input start time dan endrime akan disabled
+</script>
+

@@ -1,4 +1,7 @@
 <?php
+
+use Dompdf\Dompdf;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Bookings extends CI_Controller {    
     public function __construct(){
@@ -126,5 +129,19 @@ class Bookings extends CI_Controller {
             ];                                
             $this->load->view('bookings/print',$data);   
         }
+    }
+
+    public function download_pdf(){
+        $dompdf = new Dompdf();
+        $judul = $this->input->get('judul');
+        $data = [
+                'judul' => $judul,                
+                'data' =>$this->BookingsModel->getAll(),                
+        ];
+        $view = $this->load->view('bookings/download',$data,true);
+        $dompdf->load_html($view);
+        $dompdf->setPaper('A4');
+        $dompdf->render();
+        $dompdf->stream($judul.'.pdf',['Attachment' => 1]);
     }
 }
