@@ -57,3 +57,4 @@ $route['booked/cancel/(:num)'] = 'Bookings/cancel_booked/$1';
 $route['booked/canceled'] = 'Bookings/canceled';
 $route['bookings/print'] = 'Bookings/print';
 $route['bookings/download'] = 'Bookings/download_pdf';
+$route['profile/(:any)'] = 'Profile/index/$1';

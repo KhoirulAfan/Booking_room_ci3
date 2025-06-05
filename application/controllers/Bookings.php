@@ -6,12 +6,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Bookings extends CI_Controller {    
     public function __construct(){
         parent::__construct();
-        $this->auth_lib->required_admin();
+        $this->auth_lib->required_login();
         $this->load->model('RoomsModel');
         $this->load->model('BookingsModel');
         $this->load->model('StatusModel');        
         $this->load->library('Booking_lib');
         $this->load->library('form_validation');
+
     }
     public function index(){
         $this->auth_lib->required_admin();
@@ -23,7 +24,7 @@ class Bookings extends CI_Controller {
     }
 
     public function update($id,$status){
-        
+        $this->auth_lib->required_admin();
         $this->booking_lib->check_days($id);
         if($status === 'reject'){
             $this->BookingsModel->reject($id);
@@ -41,6 +42,7 @@ class Bookings extends CI_Controller {
     public function show(){
     }
     public function create(){
+        $this->auth_lib->required_admin();
         $data = [
             'title' => 'Create data booking',
             'rooms' =>  $this->RoomsModel->getAllRooms(),
@@ -49,6 +51,7 @@ class Bookings extends CI_Controller {
         $this->load->view('bookings/create',$data);
     }
     public function store(){        
+        $this->auth_lib->required_admin();
         // validation        
         $this->form_validation->set_rules('status_id','Status','required');
         $this->form_validation->set_rules('room_id','Room','required');
@@ -84,7 +87,7 @@ class Bookings extends CI_Controller {
 
     }
     
-    public function booked($tanggal = null){
+    public function booked($tanggal = null){        
         $user_id = $this->session->userdata('user_id');
         $data = [
             'title' => 'Booked',
