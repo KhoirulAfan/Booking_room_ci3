@@ -13,10 +13,6 @@ class Profile extends CI_Controller {
             'judul'=> $namee,
             'data' => $this->UserModel->selectByName($namee)
         ];
-        print_r('<pre>');
-        print_r($namee);
-        print_r('</pre>');
-        
         $this->load->view('profile/index',$data);
         $this->load->view('layout/footer.php');
     }
