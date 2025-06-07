@@ -17,14 +17,17 @@
                   </button>
                 </div>
               <?php endif;?>
-                <div class="card">
-                <div class="card-header">
-                  <h4>Table <?= $title ?></h4>
-                  <div class="action d-flex justify-content-between">
+              <div class="card">                
+                <div class="card-header ">    
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="card-text">Table <?= $title ?></h2>                                                           
+                  </div>
+                    <div class="d-flex justify-content-between align-items-center">  
                     <div>
-                      <a href="<?= base_url('bookings/create')?>" class="btn btn-primary"><i class="bx bx-plus me-3"></i>Create</a>
-                    </div>
-                    <div>
+                      <a href="<?= base_url('bookings/create')?>" class="btn btn-primary"><i class="bx bx-plus"></i>Create</a>
+                    </div>                                
+                    <!-- fitur lainya -->
+                    <div class="d-flex gap-1 mt-2">  
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#printModal">
                         <i class="bx bx-printer"></i>
                         Print
@@ -32,88 +35,131 @@
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#downloadPDFModal">
                         <i class="bx bx-file"></i>
                         Download PDF
-                      </button>
+                      </button>                      
                     </div>
-                  </div>
+                  </div>  
+                
+                                                             
+               
                 </div>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Ruang</th>
-                        <th>purpose</th>
-                        <th>Nama user</th>                        
-                        <th>status</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>action</th>
-                      </tr>
-                    </thead>
-                    <?php if($data >1):?>
-                    <tbody class="table-border-bottom-0">
-                      <?php $no=0; foreach($data as $item): $no++?>
+                <div class="card-body border">
+                  <form action="" class="d-flex gap-1 align-items-baseline justify-content-between my-3">
+                    <!-- search -->
+                    <div class="d-flex gap-1">
+                      <div class="input-group" >
+                      <label for="searchbar" class="input-group-text bg-white border-end-0">
+                        <i class="bx bx-search"></i>
+                      </label>
+                      <input
+                        id="searchbar"
+                        type="text"
+                        class="form-control border-start-0"
+                        placeholder="Search…"
+                        aria-label="Search"
+                      />                        
+                      </div>
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bx bx-search fs-5"></i>
+                    </button>
+                    </div>
+                    <!-- filtering -->
+                    <div class="filtering d-flex gap-1">
+                      <div>                            
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="short">
+                        <option selected>Short By</option>
+                        <option value="asc">ASC</option>
+                        <option value="desc">DESC</option>                            
+                      </select>
+                    </div>
+                    <div>                            
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="filter">
+                        <option selected>Filter By</option>
+                        <option value="asc">ASC</option>                            
+                        <option value="asc">ASC</option>                            
+                        <option value="asc">ASC</option>                            
+                      </select>
+                    </div>
+                    </div>
+                  </form>
+                  <div class="table-responsive text-nowrap">
+                    <table class="table">
+                      <thead>
                         <tr>
-                          <td><?= $no ?></td>
-                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $item->nama_room ?></strong></td>
-                          <td><?= $item->purpose ?></td>
-                          <td><?= $item->nama_user ?></td>                          
-                          <td>
-                            <?php                             
-                            $statusBadge = [
-                              'pending'  => 'warning',
-                              'approved' => 'success'
-                            ];
-                            $bade = $statusBadge[$item->status] ?? 'danger';
-                            if($item->canceled):
-                            ?>
-                            <div class="badge bg-label-warning">
-                              Canceled
-                            </div>     
-                            <?php else:;?>
-                            <div class="badge bg-label-<?= $bade?>">
-                              <?= $item->status ?>
-                            </div>     
-                            <?php endif;?>                       
-                          </td>
-                          <td>
-                            <small>
-                              <?= date('d-m-Y',strtotime($item->start_time))?>
-                            </small>
-                            <span class="badge bg-label-primary">
-                              <?= date('H:i',strtotime($item->start_time))?>
-                            </span>
-                          </td>
-                          <td>
-                            <small>
-                              <?= date('d-m-Y',strtotime($item->end_time))?>
-                            </small>
-                            <span class="badge bg-label-primary">
-                              <?= date('H:i',strtotime($item->end_time))?>
-                            </span>
-                          </td>  
-                          <td>
-                            <div class="dropdown">
-                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu">
-                                <a href="<?= base_url('bookings/update/'.$item->id.'/approve')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to approve this booking data?')"><i class="bx bx-check me-1"></i>Approve</a>
-                                <a href="<?= base_url('bookings/update/'.$item->id.'/reject')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to reject this booking data?')"><i class="bx bx-x me-1"></i> Reject</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>                                                   
-                      <?php endforeach;?>
-                    </tbody>
-                    <?php else:?>
-                      <tbody class="table-border-bottom-0">
-                        <tr>
-                          <td class="text-center" colspan="8">Data kosong</td>
+                          <th>No</th>
+                          <th>Ruang</th>
+                          <th>purpose</th>
+                          <th>Nama user</th>                        
+                          <th>status</th>
+                          <th>Start</th>
+                          <th>End</th>
+                          <th>action</th>
                         </tr>
+                      </thead>
+                      <?php if($data >1):?>
+                      <tbody class="table-border-bottom-0">
+                        <?php $no=0; foreach($data as $item): $no++?>
+                          <tr>
+                            <td><?= $no ?></td>
+                            <td><i class="fab fa-angular fa-lg text-danger"></i> <strong><?= $item->nama_room ?></strong></td>
+                            <td><?= $item->purpose ?></td>
+                            <td><?= $item->nama_user ?></td>                          
+                            <td>
+                              <?php                             
+                              $statusBadge = [
+                                'pending'  => 'warning',
+                                'approved' => 'success'
+                              ];
+                              $bade = $statusBadge[$item->status] ?? 'danger';
+                              if($item->canceled):
+                              ?>
+                              <div class="badge bg-label-warning">
+                                Canceled
+                              </div>     
+                              <?php else:;?>
+                              <div class="badge bg-label-<?= $bade?>">
+                                <?= $item->status ?>
+                              </div>     
+                              <?php endif;?>                       
+                            </td>
+                            <td>
+                              <small>
+                                <?= date('d-m-Y',strtotime($item->start_time))?>
+                              </small>
+                              <span class="badge bg-label-primary">
+                                <?= date('H:i',strtotime($item->start_time))?>
+                              </span>
+                            </td>
+                            <td>
+                              <small>
+                                <?= date('d-m-Y',strtotime($item->end_time))?>
+                              </small>
+                              <span class="badge bg-label-primary">
+                                <?= date('H:i',strtotime($item->end_time))?>
+                              </span>
+                            </td>  
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a href="<?= base_url('bookings/update/'.$item->id.'/approve')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to approve this booking data?')"><i class="bx bx-check me-1"></i>Approve</a>
+                                  <a href="<?= base_url('bookings/update/'.$item->id.'/reject')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to reject this booking data?')"><i class="bx bx-x me-1"></i> Reject</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>                                                   
+                        <?php endforeach;?>
                       </tbody>
-                    <?php endif;?>
-                  </table>
+                      <?php else:?>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td class="text-center" colspan="8">Data kosong</td>
+                          </tr>
+                        </tbody>
+                      <?php endif;?>
+                    </table>
+                  </div>
                 </div>
               </div>
                
