@@ -65,14 +65,14 @@
                     <!-- filtering -->
                     <div class="filtering d-flex gap-1">
                       <div>                            
-                      <select class="form-select form-select-sm" aria-label="Small select example" name="short">
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="short" onchange="submit()">
                         <option selected>Short By</option>
                         <option value="asc">ASC</option>
                         <option value="desc">DESC</option>                            
                       </select>
                     </div>
                     <div>                            
-                      <select class="form-select form-select-sm" aria-label="Small select example" name="filter">
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="filter" onchange="submit()">
                         <option selected>Filter By</option>
                         <option value="asc">ASC</option>                            
                         <option value="asc">ASC</option>                            
