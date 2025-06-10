@@ -43,7 +43,7 @@
                
                 </div>
                 <div class="card-body border">
-                  <form action="" class="d-flex gap-1 align-items-baseline justify-content-between my-3">
+                  <form action="<?= base_url('bookings')?>" class="d-flex gap-1 align-items-baseline justify-content-between my-3" id="searchForm" method="get">
                     <!-- search -->
                     <div class="d-flex gap-1">
                       <div class="input-group" >
@@ -54,26 +54,28 @@
                         id="searchbar"
                         type="text"
                         class="form-control border-start-0"
-                        placeholder="Search…"
+                        placeholder="Search… [CTRL + K]"
                         aria-label="Search"
-                      />                        
+                        name="search"
+                        value="<?= $search ?? ''?>"
+                      />                      
                       </div>
                     <button type="submit" class="btn btn-primary">
-                      <i class="bx bx-search fs-5"></i>
+                      <i class="bx bx-search fs-5" id="iconInput"></i>
                     </button>
                     </div>
                     <!-- filtering -->
                     <div class="filtering d-flex gap-1">
                       <div>                            
-                      <select class="form-select form-select-sm" aria-label="Small select example" name="short" onchange="submit()">
-                        <option selected>Short By</option>
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="short" id="shortBy">
+                        <option selected value="">Short By</option>
                         <option value="asc">ASC</option>
                         <option value="desc">DESC</option>                            
                       </select>
                     </div>
                     <div>                            
-                      <select class="form-select form-select-sm" aria-label="Small select example" name="filter" onchange="submit()">
-                        <option selected>Filter By</option>
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="filter" id="filter">
+                        <option selected value="">Filter By</option>
                         <option value="asc">ASC</option>                            
                         <option value="asc">ASC</option>                            
                         <option value="asc">ASC</option>                            
@@ -81,6 +83,37 @@
                     </div>
                     </div>
                   </form>
+                <!-- script untuk url agar rapi -->
+                 <script>
+                  const searchForm = document.getElementById('searchForm');                  
+                  const searchInput = document.getElementById('searchbar');
+                  const filter = document.getElementById('filter');                    
+                  const shortBy = document.getElementById('shortBy');
+                  function removeAtributeNameIfNull(){
+                    if (!shortBy.value) {
+                      shortBy.removeAttribute('name');
+                    }
+                    if (!filter.value) {
+                      filter.removeAttribute('name');
+                    }
+                    if (!searchInput.value) {                    
+                      searchInput.removeAttribute('name');
+                    }
+                    searchForm.submit();
+                  }
+                  
+                  shortBy.addEventListener('change', removeAtributeNameIfNull);
+                  filter.addEventListener('change', removeAtributeNameIfNull);                                  
+                  searchForm.addEventListener('submit', removeAtributeNameIfNull);  
+
+                  document.addEventListener('keydown',function(e){
+                    if(e.ctrlKey && e.key.toLowerCase() == 'k'){
+                      e.preventDefault()
+                      searchInput.focus()
+                    }
+                  });
+                 </script>
+
                   <div class="table-responsive text-nowrap">
                     <table class="table">
                       <thead>
@@ -95,7 +128,7 @@
                           <th>action</th>
                         </tr>
                       </thead>
-                      <?php if($data >1):?>
+                      <?php if(count($data) >1):?>
                       <tbody class="table-border-bottom-0">
                         <?php $no=0; foreach($data as $item): $no++?>
                           <tr>
@@ -179,7 +212,7 @@
       <div class="modal-body">              
         <div class="row g-4">
           <div class="col-12 mb-0">
-            <label for="judul" class="form-label">Judul</label>
+            <label for="judulPrint" class="form-label">Judul</label>
             <input type="text" id="judulPrint" class="form-control" name="judul" >
           </div>
           <div class="col-12 mb-0">
@@ -187,11 +220,11 @@
             <input type="text" id="subJudul" class="form-control" name="subjudul" >
           </div>
           <div class="col mb-0">
-            <label for="tanggalMulai" class="form-label">Tanggal mulai</label>
-            <input type="date" id="tanggalMulaiPrint" class="form-control" name="tanggal_mulai">
+            <label for="tanggalMulaiPrint" class="form-label">Tanggal mulai</label>
+            <input type="date" id="tanggalMulaiPrint" class="form-control" name="tanggal_mulai" >
           </div>
           <div class="col mb-0">
-            <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
+            <label for="tanggalSelesaiPrint" class="form-label">Tanggal Selesai</label>
             <input type="date" id="tanggalSelesaiPrint" class="form-control" name="tanggal_selesai">
           </div>
         </div>

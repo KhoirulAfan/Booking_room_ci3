@@ -15,10 +15,12 @@ class Bookings extends CI_Controller {
 
     }
     public function index(){
+        $search = $this->input->get('search');        
         $this->auth_lib->required_admin();
         $data = [
-            'data' =>$this->BookingsModel->getAll(),
-            'title' => 'Booking'
+            'data' =>$this->BookingsModel->getAll($search),
+            'title' => 'Booking',
+            'search' => $search?? ''
         ];                                
         $this->load->view('bookings/index',$data);        
     }

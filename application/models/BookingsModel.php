@@ -2,14 +2,20 @@
 class BookingsModel extends CI_Model {
 
     private $table = 'bookings';
-    public function getAll(){
+    public function getAll($search_params=''){
         
         $this->db->select('bookings.id as id,rooms.name as nama_room,users.name as nama_user,status.name as status,start_time,end_time,purpose,canceled');
         $this->db->from($this->table);
         $this->db->join('users','bookings.user_id = users.id');
         $this->db->join('rooms','bookings.room_id = rooms.id');
         $this->db->join('status','bookings.status_id = status.id');
-        $result = $this->db->get()->result();
+        if($search_params){
+            $this->db->like('rooms.name',$search_params);
+            $this->db->or_like('users.name',$search_params); 
+            $this->db->or_like('purpose',$search_params); 
+        }
+        $this->db->order_by('bookings.id','asc');
+        $result = $this->db->get()->result();        
         return $result;        
     }
 
