@@ -5,7 +5,7 @@
             <c class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Booking rooms /</span> <?= $title ?></h4>			  
               <div class="row">
-                <div class="card col-8">
+                <div class="card col-12 col-md-8">
                 <div class="card-header">
                   <h4><?= $title ?></h4>
                   <div class="action">
@@ -13,7 +13,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                    <form action="<?= site_url('rooms/store')?>" method="post">
+                    <form action="<?= site_url('rooms/store')?>" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                           <label class="form-label" for="name">Name</label>
                           <input type="text" class="form-control" id="name" placeholder="Meeting Rooms" name="name">
@@ -30,13 +30,26 @@
                           <label class="form-label" for="description">Description</label>
                           <textarea id="description" class="form-control" placeholder="Ruang untuk kegiatan meeting ataupun yang lainya" name="description"></textarea>
                         </div>
+                        <div class="mb-3">
+                          <div class="text-primary" onclick="tambahGambar()">Tambah Gambar</div>
+                          <div id="inputGambar"></div>
+                        </div>
                         <button type="submit" class="btn btn-primary"><i class="bx bx-plus"></i>Create</button>
                       </form>
                 </div>
-              </div>
-               
+              </div>               
               </div>
 			      </c>
             <!-- / Content -->
 <?php $this->load->view('layout/footer.php')?>
      
+<script>
+  function tambahGambar(){
+    const containerInputGambar = document.getElementById('inputGambar');
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.name = 'gambar[]';
+    input.className = 'form-control mb-1'    
+    containerInputGambar.appendChild(input)
+  }
+</script>
