@@ -45,6 +45,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu">
+                                <a href="<?= base_url('rooms/d/'.$item->name)?>" class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Detail</a>
                                 <a href="<?= base_url('rooms/edit/'.$item->id)?>" class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                 <a href="<?= base_url('rooms/delete/'.$item->id)?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to delete this room data?')"><i class="bx bx-trash me-1"></i> Delete</a>
                               </div>

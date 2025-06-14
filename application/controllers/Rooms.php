@@ -17,6 +17,18 @@ class Rooms extends CI_Controller {
 
         $this->load->view('rooms/index',$data);
     }
+    
+    public function show($room_name){        
+        $name = str_replace('%20',' ',$room_name);
+        $room = [
+            'data' => $data = $this->RoomsModel->getDataByName($name),
+            'gambar' => $gambar = $this->RoomPhotosModel->getDataById($data->id)
+        ];                
+        $page['title'] = 'Detail'.$name;
+        $this->load->view('layout/header',$page);
+        $this->load->view('rooms/show',$room);
+        $this->load->view('layout/footer');
+    }
     public function create(){
         $this->auth_lib->required_admin();
         $data = [

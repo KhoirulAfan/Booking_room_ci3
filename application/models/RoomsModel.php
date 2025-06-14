@@ -15,5 +15,9 @@ class RoomsModel extends CI_Model {
     }
     public function update($id,$data){
         $this->db->where('id',$id)->update('rooms',$data);
+    }
+    public function getDataByName($name){                
+        return $this->db->get_where('rooms',['name' => $name])->row();
+        
     }    
 }
