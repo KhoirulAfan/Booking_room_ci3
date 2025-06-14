@@ -66,44 +66,71 @@
                     </div>
                     <!-- filtering -->
                     <div class="filtering d-flex gap-1">
-                      <div>                            
-                      <select class="form-select form-select-sm" aria-label="Small select example" name="short" id="shortBy">
-                        <option selected value="">Short By</option>
-                        <option value="asc">ASC</option>
-                        <option value="desc">DESC</option>                            
+                      <div>
+                      <?php 
+                      $selects = [
+                        [
+                          'value' => '',
+                          'title' => 'Short By'
+                        ],
+                        [
+                          'value' => 'nama_room',
+                          'title' => 'Ruang'
+                        ],
+                        [
+                          'value' => 'nama_user',
+                          'title' => 'Nama User'
+                        ],
+                        [
+                          'value' => 'status',
+                          'title' => 'Status'
+                        ],
+                        [
+                          'value' => 'start_time',
+                          'title' => 'Start Time'
+                        ],
+                        [
+                          'value' => 'end_time',
+                          'title' => 'End time'
+                        ]                        
+                      ]
+                      ?>
+                      <select class="form-select form-select-sm" aria-label="Small select example" name="short" id="shortBy"> 
+                        <?php foreach($selects as $select):?>  
+                          <option <?= $short_by == $select['value'] ? 'selected' : ''?>  value="<?= $select['value']?>"><?= $select['title'] ?></option>
+                        <?php endforeach?>
                       </select>
                     </div>
-                    <div>                            
+                    <!-- <div>                            
                       <select class="form-select form-select-sm" aria-label="Small select example" name="filter" id="filter">
-                        <option selected value="">Filter By</option>
+                        <option selected value="">Order By</option>
                         <option value="asc">ASC</option>                            
                         <option value="asc">ASC</option>                            
                         <option value="asc">ASC</option>                            
                       </select>
-                    </div>
+                    </div> -->
                     </div>
                   </form>
                 <!-- script untuk url agar rapi -->
                  <script>
                   const searchForm = document.getElementById('searchForm');                  
-                  const searchInput = document.getElementById('searchbar');
-                  const filter = document.getElementById('filter');                    
+                  const searchInput = document.getElementById('searchbar');                          
                   const shortBy = document.getElementById('shortBy');
+                  console.log(shortBy);
                   function removeAtributeNameIfNull(){
                     if (!shortBy.value) {
                       shortBy.removeAttribute('name');
                     }
-                    if (!filter.value) {
-                      filter.removeAttribute('name');
-                    }
+                    // if (!filter.value) {
+                    //   filter.removeAttribute('name');
+                    // }
                     if (!searchInput.value) {                    
                       searchInput.removeAttribute('name');
                     }
                     searchForm.submit();
                   }
                   
-                  shortBy.addEventListener('change', removeAtributeNameIfNull);
-                  filter.addEventListener('change', removeAtributeNameIfNull);                                  
+                  shortBy.addEventListener('change', removeAtributeNameIfNull);                                                  
                   searchForm.addEventListener('submit', removeAtributeNameIfNull);  
 
                   document.addEventListener('keydown',function(e){

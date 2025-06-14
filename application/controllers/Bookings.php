@@ -16,11 +16,13 @@ class Bookings extends CI_Controller {
     }
     public function index(){
         $search = $this->input->get('search');        
+        $short_by = $this->input->get('short');           
         $this->auth_lib->required_admin();
         $data = [
-            'data' =>$this->BookingsModel->getAll($search),
+            'data' =>$this->BookingsModel->getAll($search,$short_by),
             'title' => 'Booking',
-            'search' => $search?? ''
+            'search' => $search?? '',
+            'short_by' => $short_by ?? ''
         ];                                
         $this->load->view('bookings/index',$data);        
     }
