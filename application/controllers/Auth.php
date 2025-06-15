@@ -30,6 +30,7 @@ class Auth extends CI_Controller {
                 'level' => $user->level,
                 'logged_in' => true
             ]);
+            $this->session->set_flashdata('login_success','Login berhasil');
             redirect('dashboard');
         }else{
             $this->session->set_flashdata('error','email atau password salah');

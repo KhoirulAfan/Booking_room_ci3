@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <?php 
                             foreach($data as $key =>$item):?>
-                            <p class="card-text"><?= $key.' : '.$item ?></p>
+                            <p class="card-text"><?= $key === 'id' ? '' : $key.' : '.$item ?></p>
                             <?php
                             endforeach;
                             ?>
@@ -23,7 +23,7 @@
                     <div class="row">
                         <?php foreach($gambar as $gamba):?>
                             <div class="col-4">
-                                <div class="card">                                
+                                <div class="card ">                                
                                         <img src="<?= base_url('uploads/'.$gamba->filename)?>" alt="" class="card_img_top">
                                 </div>
                             </div>
