@@ -20,4 +20,18 @@ class DashboardModel extends CI_Model {
         ");
         return $query->result();
     }
+    public function hitungDataTable($table){
+        $data = $this->db->count_all($table);        
+        return str_pad($data,2,0,STR_PAD_LEFT);
+    }
+    public function hitungDataRoom($booked = false){
+        $db = 'rooms';
+        // if(!$booked){
+        //     $this->db->from($db);
+        //     $this->db->join('bookings','rooms.id = bookings.room_id AND bookings.start')
+        //     return;
+        // }else{
+        //     return 'booked';
+        // }
+    }
 }
