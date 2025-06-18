@@ -30,14 +30,23 @@ class Bookings extends CI_Controller {
     public function update($id,$status){
         $this->auth_lib->required_admin();
         $this->booking_lib->check_days($id);
+        $from = $this->input->get('from');
         if($status === 'reject'){
             $this->BookingsModel->reject($id);
             $this->session->set_flashdata('success','Successfull rejected bookings data');
-            redirect('bookings');
+            if($from == 'dashboard'){
+                redirect('dashboard');
+            }else{
+                redirect('bookings');
+            }            
         }elseif($status === 'approve'){
             $this->BookingsModel->approve($id);
             $this->session->set_flashdata('success','Successfull approved bookings data');
-            redirect('bookings');
+            if($from == 'dashboard'){
+                redirect('dashboard');
+            }else{
+                redirect('bookings');
+            }
         }else{
             $this->session->set_flashdata('error','Ada sedikit kesalahan');
         }

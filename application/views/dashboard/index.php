@@ -2,6 +2,14 @@
   <div class="content-wrapper">                
     <c class="container-xxl flex-grow-1 container-p-y">
       <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Booking rooms /</span> Dashboard</h4>    
+      <?php if($this->session->flashdata('success')):?>
+                <div class="row">
+                  <div class="alert alert-success alert-dismissible" role="alert">
+                   <i class="bx bx-check"></i> <?= $this->session->flashdata('success') ?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  </button>
+                </div>
+              <?php endif;?>
       <?php if($this->session->flashdata('login_success')):?>
         <div class="alert alert-primary alert-dismissible" role="alert">
           Selamat datang di website kami, <?= $this->session->userdata('name')?>
@@ -66,7 +74,7 @@
         </div>         
       </div>
       <!-- chart -->
-      <div class="row">
+      <div class="row mb-4">
         <div class="col-12">
           <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -78,11 +86,7 @@
                         [
                           'value' => '',
                           'title' => 'This Week'
-                        ],
-                        [
-                          'value' => 'last_week',
-                          'title' => 'Last Week'
-                        ],                       
+                        ],                                         
                         [
                           'value' => 'this_month',
                           'title' => 'This Month'
@@ -123,6 +127,97 @@
           </div>
         </div>
       </div>
+      <!-- table booking terbaru -->
+       <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Booking terbaru</h4>
+            </div>
+            <div class="card-body">
+                 <div class="table-responsive text-nowrap">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Ruang</th>
+                          <th>purpose</th>
+                          <th>Nama user</th>                        
+                          <th>status</th>
+                          <th>Start</th>
+                          <th>End</th>
+                          <th>action</th>
+                        </tr>
+                      </thead>
+                      <?php if(count($booking_terbaru) >1):?>
+                      <tbody class="table-border-bottom-0">
+                        <?php $no=0; foreach($booking_terbaru as $item): $no++?>
+                          <tr>
+                            <td><?= $no ?></td>
+                            <td><i class="fab fa-angular fa-lg text-danger"></i> <strong><?= $item->nama_room ?></strong></td>
+                            <td><?= $item->purpose ?></td>
+                            <td><?= $item->nama_user ?></td>                          
+                            <td>
+                              <?php                             
+                              $statusBadge = [
+                                'pending'  => 'warning',
+                                'approved' => 'success'
+                              ];
+                              $bade = $statusBadge[$item->status] ?? 'danger';
+                              if($item->canceled):
+                              ?>
+                              <div class="badge bg-label-warning">
+                                Canceled
+                              </div>     
+                              <?php else:;?>
+                              <div class="badge bg-label-<?= $bade?>">
+                                <?= $item->status ?>
+                              </div>     
+                              <?php endif;?>                       
+                            </td>
+                            <td>
+                              <small>
+                                <?= date('d-m-Y',strtotime($item->start_time))?>
+                              </small>
+                              <span class="badge bg-label-primary">
+                                <?= date('H:i',strtotime($item->start_time))?>
+                              </span>
+                            </td>
+                            <td>
+                              <small>
+                                <?= date('d-m-Y',strtotime($item->end_time))?>
+                              </small>
+                              <span class="badge bg-label-primary">
+                                <?= date('H:i',strtotime($item->end_time))?>
+                              </span>
+                            </td>  
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a href="<?= base_url('bookings/update/'.$item->id.'/approve'.'?from=dashboard')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to approve this booking data?')"><i class="bx bx-check me-1"></i>Approve</a>
+                                  <a href="<?= base_url('bookings/update/'.$item->id.'/reject'.'?from=dashboard')?>" class="dropdown-item" href="javascript:void(0);" onclick="confirm('Are you sure to reject this booking data?')"><i class="bx bx-x me-1"></i> Reject</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>                                                   
+                        <?php endforeach;?>
+                      </tbody>
+                      <?php else:?>
+                        <tbody class="table-border-bottom-0">
+                          <tr>
+                            <td class="text-center" colspan="8">Data kosong</td>
+                          </tr>
+                        </tbody>
+                      <?php endif;?>
+                    </table>
+                  </div>
+            </div>
+          </div>
+        </div>
+       </div>
     </c>            
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

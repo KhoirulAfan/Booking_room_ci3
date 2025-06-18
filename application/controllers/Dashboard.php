@@ -5,10 +5,11 @@ class Dashboard extends CI_Controller {
         parent::__construct();        
         $this->auth_lib->required_login();        
         $this->load->model('DashboardModel');
+        $this->load->model('BookingsModel');
     }
     public function index(){
 
-        $chart_week_obj = $this->DashboardModel->getDataWeek(); // data chart jumlah booking dalam minggu ini
+        $chart_week_obj = $this->DashboardModel->getDataByRange(); // data chart jumlah booking dalam minggu ini
         $label = array_map(fn($chart_week_obj) => [$chart_week_obj->hari,$chart_week_obj->tanggal] ,$chart_week_obj);        
         $data = [
             'chart_total_booking' => [
@@ -21,9 +22,10 @@ class Dashboard extends CI_Controller {
                 'total_user' => $this->DashboardModel->hitungDataTable('users'),
                 'total_room_booked' => $this->DashboardModel->hitungDataRoom($booked = true),
                 'total_room_avaliable' => $this->DashboardModel->hitungDataRoom(),
-            ]
+            ],
+            'booking_terbaru' => $this->BookingsModel->getAllByRange(date('Y-m-d'),date('Y-m-d'))
     
-        ];             
+        ];                  
         $this->load->view('dashboard/index',$data);
     }   
 }

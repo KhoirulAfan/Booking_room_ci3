@@ -1,6 +1,6 @@
 <?php
 class DashboardModel extends CI_Model {
-    public function getDataWeek(){
+    public function getDataByRange(){
         $query = $this->db->query("
             SELECT
             DATE_FORMAT(d.tanggal, '%W') AS hari,
@@ -24,14 +24,32 @@ class DashboardModel extends CI_Model {
         $data = $this->db->count_all($table);        
         return str_pad($data,2,0,STR_PAD_LEFT);
     }
-    public function hitungDataRoom($booked = false){
-        $db = 'rooms';
-        // if(!$booked){
-        //     $this->db->from($db);
-        //     $this->db->join('bookings','rooms.id = bookings.room_id AND bookings.start')
-        //     return;
-        // }else{
-        //     return 'booked';
-        // }
+    public function hitungDataRoom($booked = false){        
+        $sql1 = "
+            SELECT count(*) as jumlah_room from rooms as r 
+            join bookings as b on (b.room_id = r.id) 
+            join status on (b.status_id = status.id) 
+            WHERE
+            ";         
+        $sql2 = "NOT(";
+        $sql3 = "
+                now() >= b.start_time 
+                AND 
+                now() <= b.end_time 
+                AND
+                status.name = 'approved'                 
+                ";
+        $sql4 = ")";
+        $sql5 = ";";
+        
+        if($booked){
+            $sql = $sql1.$sql3.$sql5;
+        }else{
+            $sql = $sql1.$sql2.$sql3.$sql4.$sql5;
+            
+        }
+        $query = $this->db->query($sql);                 
+        $data = $query->row()->jumlah_room;
+        return str_pad($data,2,0,STR_PAD_LEFT);
     }
 }
